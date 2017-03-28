@@ -6,7 +6,7 @@ import os
 打包的用的setup必须引入
 """
 
-VERSION = '1.0.6'
+VERSION = '1.0.7'
 
 setup(
     name='wanplusapi',  # 文件名

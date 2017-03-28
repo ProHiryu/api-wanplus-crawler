@@ -1,6 +1,6 @@
 #-*- encoding: UTF-8 -*-
-# from . import call_api
-import call_api
+from . import call_api
+# import call_api
 
 
 def get_competitions():

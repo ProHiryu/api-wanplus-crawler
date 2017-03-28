@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: wanplusapi
+Version: 1.0.7
+Summary: a small programm of wanplus crawler
+Home-page: https://github.com/ProHiryu/api-wanplus-crawler
+Author: songheqi
+Author-email: songheqi1996@gmail.com
+License: MIT
+Description: UNKNOWN
+Keywords: python wanplus crawler
+Platform: any
