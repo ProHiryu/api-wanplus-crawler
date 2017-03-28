@@ -1,5 +1,6 @@
 #-*- encoding: UTF-8 -*-
-from . import call_api
+# from . import call_api
+import call_api
 
 
 def get_competitions():
@@ -125,12 +126,12 @@ class CompetitionTeams:
         self.areas = c['areas']
 
 if __name__ == "__main__":
-    # c = get_team_competition_info()
-    # print(c.teamnames, c.teamids, c.areas)
+    c = get_team_competition_info()
+    print(c.teamnames, c.teamids, c.areas)
 
     t = get_team_performance()
     print(t.goldsPermin)
 
-    # c = get_competitions()
-    # for competition in c:
-    #     print(competition.name)
+    c = get_competitions()
+    for competition in c:
+        print(competition.name)
