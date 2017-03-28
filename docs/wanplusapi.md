@@ -8,7 +8,7 @@ Get all the competitions. Returns a Competitions object.
 
 Usage:
 
-```
+```python3
 from wanplusapi import wanplusapi
 competitions = wanplusapi.get_competitions()
 ```
@@ -19,13 +19,13 @@ Get all the teams in the specific Competition. Returns a CompetitionTeams object
 
 Params:
 
-```
+```python3
 eid : the id of competition , you can get it from get_competitions
 ```
 
 Usage:
 
-```
+```python3
 from wanplusapi import wanplusapi
 competitions_teams = wanplusapi.get_team_competition_info()
 ```
@@ -36,14 +36,14 @@ Get the specified teams' data in the specific Competition. Returns a TeamPerform
 
 Params:
 
-```
+```python3
 eid : the id of competition , you can get it from get_competitions and get_team_competition_info
 teamid : the id of team , you can get it from get_team_competition_info
 ```
 
 Usage:
 
-```
+```python3
 from wanplusapi import wanplusapi
 team_performance = wanplusapi.get_team_performance()
 ```
@@ -52,7 +52,7 @@ team_performance = wanplusapi.get_team_performance()
 
 #### Competition
 
-```
+```python3
 order : str
 eid : str
 name : str
@@ -61,7 +61,7 @@ eventtype : str
 
 #### TeamInfo
 
-```
+```python3
 teamid : str
 teamname : str
 area : str
@@ -69,7 +69,7 @@ area : str
 
 #### TeamPerformance
 
-```
+```python3
 eid : str
 teamid : str
 area : str
@@ -99,7 +99,7 @@ avgDuration : str
 
 #### CompetitionTeams
 
-```
+```python3
 eid : str
 teamnames : a list of str
 teamids : a list of str
