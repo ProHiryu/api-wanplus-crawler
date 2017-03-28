@@ -28,7 +28,7 @@ $ python3 setup.py install
 
 ### The module consists of the following sub-modules:
 
-- wanplusapi([docs]("\docs\wanplusapi.md"))
+- wanplusapi([docs](/docs/wanplusapi.md))
 
 
 ### Notifications
