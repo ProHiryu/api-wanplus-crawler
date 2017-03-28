@@ -11,7 +11,7 @@ def get_competitions():
         temp['eid'] = data['eventList'][key]['eid']
         temp['name'] = data['eventList'][key]['name']
         temp['eventtype'] = data['eventList'][key]['eventtype']
-        competition_temp = competition(temp)
+        competition_temp = Competition(temp)
         competitions.append(competition_temp)
     return competitions
 
@@ -24,7 +24,7 @@ def get_team_competition_info(eid=348):
         competition_team['teamnames'].append(blcok['teamname'])
         competition_team['teamids'].append(blcok['teamid'])
         competition_team['areas'].append(blcok['area'])
-    competition_team_return = competition_teams(competition_team)
+    competition_team_return = CompetitionTeams(competition_team)
     return competition_team_return
 
 
@@ -64,11 +64,11 @@ def get_team_performance(eid=348, teamid=271):
         if block['teamid'] == str(teamid):
             for key in keys:
                 temp[key] = block[key]
-    t = teamperformance(temp)
+    t = TeamPerformance(temp)
     return t
 
 
-class competition:
+class Competition:
 
     def __init__(self, c):
         self.order = c['order']
@@ -77,7 +77,7 @@ class competition:
         self.eventtype = c['eventtype']
 
 
-class teaminfo:
+class TeamInfo:
 
     def __init__(self, t):
         self.teamid = t['teamid']
@@ -85,7 +85,7 @@ class teaminfo:
         self.teamname = t['teamname']
 
 
-class teamperformance:
+class TeamPerformance:
 
     def __init__(self, t):
         self.eid = t['eid']
@@ -116,7 +116,7 @@ class teamperformance:
         self.avgDuration = ['avgDuration']
 
 
-class competition_teams:
+class CompetitionTeams:
 
     def __init__(self, c):
         self.eid = c['eid']
