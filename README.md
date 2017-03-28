@@ -1,6 +1,6 @@
 # api-wanplus-crawler
 
-> version 1.0.6
+> version 1.0.7
 
 A small crawler to wanplus.com, currently support the query platform for all the team performance, the api is strictly prohibited for commercial use. Support python3.5
 
