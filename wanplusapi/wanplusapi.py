@@ -1,6 +1,5 @@
 #-*- encoding: UTF-8 -*-
-
-import call_api
+from . import call_api
 
 
 def get_competitions():
@@ -16,7 +15,57 @@ def get_competitions():
         competitions.append(competition_temp)
     return competitions
 
-def get_teamperformance(eid=384,teamid=197):
+
+def get_team_competition_info(eid=348):
+    data = call_api.send_post(eid=eid)
+    competition_team = {'eid': '', 'teamnames': [], 'teamids': [], 'areas': []}
+    competition_team['eid'] = str(eid)
+    for blcok in data['data']:
+        competition_team['teamnames'].append(blcok['teamname'])
+        competition_team['teamids'].append(blcok['teamid'])
+        competition_team['areas'].append(blcok['area'])
+    competition_team_return = competition_teams(competition_team)
+    return competition_team_return
+
+
+def get_team_performance(eid=348, teamid=271):
+    keys = ["kda", "fstbloodpercentage", "eid", "teamid", "area", "appearedTimes",
+            "proAppearedTimes", "goldsPermin", "lasthitPermin", "highestgoldpermin", "towertakensPergame", "towerdeathsPergame", "damagetoheroPermin", "wardsplacedpermin", "wardskilledpermin",
+            "killsPergame", "deathsPergame", "assistsPergame", "lasthitpermatch"]
+
+    data = call_api.send_post(eid=eid)
+    temp = {"eid": "",
+            "teamid": "",
+            "area": "",
+            "appearedTimes": "",
+            "kda": "",
+            "fstbloodpercentage": "",
+            "proAppearedTimes": "",
+            "goldsPermin": "",
+            "lasthitPermin": "",
+            "damagetoheroPermin": "",
+            "wardsplacedpermin": "",
+            "wardskilledpermin": "",
+            "killsPergame": "",
+            "deathsPergame": "",
+            "assistsPergame": "",
+            "lasthitpermatch": "",
+            "highestgoldpermin": "",
+            "baronkillsPergame": "",
+            "dragonkillsPergame": "",
+            "towertakensPergame": "",
+            "towerdeathsPergame": "",
+            "dragonkillspercentage": "",
+            "baronkillspercentage": "",
+            "wardskilledrate": "",
+            "avgDuration": ""}
+
+    for block in data['data']:
+        if block['teamid'] == str(teamid):
+            for key in keys:
+                temp[key] = block[key]
+    t = teamperformance(temp)
+    return t
 
 
 class competition:
@@ -27,11 +76,14 @@ class competition:
         self.name = c['name']
         self.eventtype = c['eventtype']
 
+
 class teaminfo:
-    def __init__(self,t):
+
+    def __init__(self, t):
         self.teamid = t['teamid']
         self.area = t['area']
         self.teamname = t['teamname']
+
 
 class teamperformance:
 
@@ -48,13 +100,13 @@ class teamperformance:
         self.assistsPergame = t['assistsPergame']
         self.lasthitPermin = t['lasthitPermin']
         self.lasthitpermatch = t['lasthitpermatch']
-        self.totalGolds = t['totalGolds']
         self.damagetoheroPermin = t['damagetoheroPermin']
         self.goldsPermin = t['goldsPermin']
         self.wardsplacedpermin = t['wardsplacedpermin']
         self.wardskilledpermin = t['wardskilledpermin']
         self.baronkillsPergame = t['baronkillsPergame']
         self.dragonkillsPergame = t['dragonkillsPergame']
+        self.baronkillsPergame = t['baronkillsPergame']
         self.towertakensPergame = t['towertakensPergame']
         self.towerdeathsPergame = t['towerdeathsPergame']
         self.highestgoldpermin = t['highestgoldpermin']
@@ -63,7 +115,22 @@ class teamperformance:
         self.wardskilledrate = t['wardskilledrate']
         self.avgDuration = ['avgDuration']
 
+
+class competition_teams:
+
+    def __init__(self, c):
+        self.eid = c['eid']
+        self.teamnames = c['teamnames']
+        self.teamids = c['teamids']
+        self.areas = c['areas']
+
 if __name__ == "__main__":
-    competitions = get_competitions()
-    for competition in competitions:
-        print(competition.name)
+    # c = get_team_competition_info()
+    # print(c.teamnames, c.teamids, c.areas)
+
+    t = get_team_performance()
+    print(t.goldsPermin)
+
+    # c = get_competitions()
+    # for competition in c:
+    #     print(competition.name)
