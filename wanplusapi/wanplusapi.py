@@ -18,15 +18,49 @@ def get_competitions():
 
 
 def get_team_competition_info(eid=348):
-    data = call_api.send_post(eid=eid)
-    competition_team = {'eid': '', 'teamnames': [], 'teamids': [], 'areas': []}
-    competition_team['eid'] = str(eid)
-    for blcok in data['data']:
-        competition_team['teamnames'].append(blcok['teamname'])
-        competition_team['teamids'].append(blcok['teamid'])
-        competition_team['areas'].append(blcok['area'])
-    competition_team_return = CompetitionTeams(competition_team)
-    return competition_team_return
+    keys = ['teamid', 'area', 'teamname']
+
+    data = call_api.send_post(eid=eid,
+                              search_type='team')
+    competition_teams = {'eid': str(eid), 'teams': []}
+    team = {'teamid': '', 'area': '', 'teamname': ''}
+    for block in data['data']:
+        for key in keys:
+            team[key] = block[key]
+        single_team = TeamInfo(team)
+        competition_teams['teams'].append(single_team)
+    return_competition_teams = CompetitionTeams(competition_teams)
+
+    return return_competition_teams
+
+
+def get_player_competition_info(eid=348):
+    keys = ['teamid', 'meta', 'playerid', 'playername']
+
+    data = call_api.send_post(eid=eid,
+                              search_type='player')
+    # for i in range(len(data['data'])):
+    #     print(data['data'][i]['playername'])
+    competition_players = {'eid': str(eid), 'players': []}
+    player = {'teamid': '', 'meta': '', 'playerid': '', 'playername': ''}
+    for block in data['data']:
+        for key in keys:
+            if key == 'meta':
+                if block[key] == '上单':
+                    block[key] = 'Top'
+                if block[key] == '中单':
+                    block[key] = 'Mid'
+                if block[key] == '辅助':
+                    block[key] = 'Sup'
+                if block[key] == '打野':
+                    block[key] = 'Jug'
+
+            player[key] = block[key]
+        single_player = PlayerInfo(player)
+        competition_players['players'].append(single_player)
+    return_competition_players = CompetitionPlayers(competition_players)
+
+    return return_competition_players
 
 
 def get_team_performance(eid=348, teamid=271):
@@ -69,6 +103,31 @@ def get_team_performance(eid=348, teamid=271):
     return t
 
 
+def get_player_performance(eid=348, playerid=2752):
+    keys = ['eid', 'playername', 'teamname', 'meta', 'appearedTimes', 'killsPergame', 'deathsPergame', 'assistsPergame', 'goldsPermin', 'lasthitPermin', 'damagetakenPermin',
+            'damagetoheroPermin', 'wardsplacedPergame', 'wardskilledPergame', 'goldsPercent', 'damagetakenPercent', 'damagetoheroPercent', 'kda', 'attendrate']
+    data = call_api.send_post(eid=eid, search_type="player")
+    temp = dict()
+    for key in keys:
+        temp[key] = ''
+    for block in data['data']:
+        if str(playerid) == block['playerid']:
+            for key in keys:
+                if key == 'meta':
+                    if block[key] == '上单':
+                        block[key] = 'Top'
+                    if block[key] == '中单':
+                        block[key] = 'Mid'
+                    if block[key] == '辅助':
+                        block[key] = 'Sup'
+                    if block[key] == '打野':
+                        block[key] = 'Jug'
+                temp[key] = block[key]
+
+    t = PlayerPerformance(temp)
+    return t
+
+
 class Competition:
 
     def __init__(self, c):
@@ -84,6 +143,39 @@ class TeamInfo:
         self.teamid = t['teamid']
         self.area = t['area']
         self.teamname = t['teamname']
+
+
+class PlayerInfo:
+
+    def __init__(self, p):
+        self.teamid = p['teamid']
+        self.playerid = p['playerid']
+        self.meta = p['meta']
+        self.playername = p['playername']
+
+
+class PlayerPerformance:
+
+    def __init__(self, p):
+        self.eid = p['eid']
+        self.playername = p['playername']
+        self.teamname = p['teamname']
+        self.meta = p['meta']
+        self.appearedTimes = p['appearedTimes']
+        self.killsPergame = p['killsPergame']
+        self.deathsPergame = p['deathsPergame']
+        self.assistsPergame = p['assistsPergame']
+        self.goldsPermin = p['goldsPermin']
+        self.lasthitPermin = p['lasthitPermin']
+        self.damagetakenPermin = p['damagetakenPermin']
+        self.damagetoheroPermin = p['damagetoheroPermin']
+        self.wardsplacedPergame = p['wardsplacedPergame']
+        self.wardskilledPergame = p['wardskilledPergame']
+        self.goldsPercent = p['goldsPercent']
+        self.damagetakenPercent = p['damagetakenPercent']
+        self.damagetoheroPercent = p['damagetoheroPercent']
+        self.kda = p['kda']
+        self.attendrate = p['attendrate']
 
 
 class TeamPerformance:
@@ -121,17 +213,14 @@ class CompetitionTeams:
 
     def __init__(self, c):
         self.eid = c['eid']
-        self.teamnames = c['teamnames']
-        self.teamids = c['teamids']
-        self.areas = c['areas']
+        self.teams = c['teams']
+
+
+class CompetitionPlayers:
+
+    def __init__(self, c):
+        self.eid = c['eid']
+        self.players = c['players']
 
 if __name__ == "__main__":
-    c = get_team_competition_info()
-    print(c.teamnames, c.teamids, c.areas)
-
-    t = get_team_performance()
-    print(t.goldsPermin)
-
-    c = get_competitions()
-    for competition in c:
-        print(competition.name)
+    pass
