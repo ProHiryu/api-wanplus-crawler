@@ -1,6 +1,6 @@
 # api-wanplus-crawler
 
-> version 1.0.7
+> version 2.1.3
 
 A small crawler to wanplus.com, currently support the query platform for all the team performance, the api is strictly prohibited for commercial use. Support python3.5
 
@@ -23,8 +23,10 @@ $ python3 setup.py install
 ### Functions
 
 - search all the competitions
-- search all the team and competitions info
+- search all the teams and competitions info
 - search all the team performance in special competition
+- search all the players connected to teams information
+- search all the player performance in the specific competition
 
 ### The module consists of the following sub-modules:
 
