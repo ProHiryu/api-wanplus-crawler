@@ -4,7 +4,7 @@
 
 A small crawler to wanplus.com, currently support the query platform for all the team performance, the api is strictly prohibited for commercial use. Support python3.5
 
-### Getting Started
+## Getting Started
 
 installation via pip:
 
@@ -20,7 +20,7 @@ $ cd api-wanplus-crawler
 $ python3 setup.py install
 ```
 
-### Functions
+## Functions
 
 - search all the competitions
 - search all the teams and competitions info
@@ -28,11 +28,11 @@ $ python3 setup.py install
 - search all the players connected to teams information
 - search all the player performance in the specific competition
 
-### The module consists of the following sub-modules:
+## The module consists of the following sub-modules:
 
 - wanplusapi([docs](/docs/wanplusapi.md))
 
 
-### Notifications
+## Notifications
 
 The item is for entertainment only
